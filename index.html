@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevState Ultra | Full Developer Ecosystem</title>
+    <title>DevState Ultra | Houssam Rhidouani</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <meta name="author" content="houssam Rhidouani">
+    <meta name="author" content="Houssam Rhidouani">
     <style>
         :root {
             --bg: #030712;
@@ -30,7 +30,16 @@
         .logo { font-size: 1.6rem; font-weight: 800; text-decoration: none; color: #fff; }
         .logo span { color: var(--primary); }
         .nav-actions { display: flex; gap: 20px; align-items: center; }
-        
+
+        /* --- AUTHOR BANNER --- */
+        .author-banner { 
+            text-align: center; 
+            margin: 15px 0; 
+            color: var(--accent); 
+            font-weight: 700; 
+            font-size: 1.1rem;
+        }
+
         /* --- SEARCH BOX --- */
         .search-container { position: relative; margin: 20px auto; max-width: 600px; }
         .search-container input {
@@ -80,6 +89,8 @@
     </div>
 </header>
 
+<div class="author-banner">Developed by Houssam Rhidouani</div>
+
 <div class="container">
     <div style="text-align: center;">
         <h1>Elevate Your Skills</h1>
@@ -91,6 +102,7 @@
 
     <div class="section-title"><h2>Interactive Courses</h2></div>
     <div class="grid" id="courseGrid">
+        <!-- Python Card -->
         <div class="card item">
             <span class="price">$19.99</span>
             <i class="fa-brands fa-python main-icon" style="color: #fbbf24;"></i>
@@ -101,6 +113,7 @@
                 <button class="btn btn-lab" onclick="openLab('python')">Practice</button>
             </div>
         </div>
+        <!-- JS Card -->
         <div class="card item">
             <span class="price">$24.99</span>
             <i class="fa-brands fa-js main-icon" style="color: #f0db4f;"></i>
@@ -111,6 +124,7 @@
                 <button class="btn btn-lab" onclick="openLab('js')">Practice</button>
             </div>
         </div>
+        <!-- Java Card -->
         <div class="card item">
             <span class="price">$29.99</span>
             <i class="fa-brands fa-java main-icon" style="color: #e76f51;"></i>
@@ -121,6 +135,7 @@
                 <button class="btn btn-lab" onclick="openLab('java')">Practice</button>
             </div>
         </div>
+        <!-- C++ Card -->
         <div class="card item">
             <span class="price">$22.00</span>
             <i class="fa-solid fa-code main-icon" style="color: #00599c;"></i>
@@ -150,19 +165,10 @@
             <h4>Clean Code</h4>
             <a href="https://archive.org/download/CleanCode/Clean%20Code.pdf" target="_blank" class="btn btn-watch">Read</a>
         </div>
-        <div class="book-card item">
-            <div class="book-cover" style="background: #6f4e37;"><i class="fa-brands fa-java"></i></div>
-            <h4>Thinking in Java</h4>
-            <a href="https://www.mindviewinc.com/TIJ4/ThinkingInJava4.pdf" target="_blank" class="btn btn-watch">Read</a>
-        </div>
-        <div class="book-card item">
-            <div class="book-cover" style="background: #777bb4;"><i class="fa-brands fa-php"></i></div>
-            <h4>PHP & MySQL</h4>
-            <a href="https://math.hws.edu/eck/cs124/downloads/javanotes9-linked.pdf" target="_blank" class="btn btn-watch">Read</a>
-        </div>
     </div>
 </div>
 
+<!-- Video Overlay -->
 <div class="overlay" id="video-overlay">
     <div style="padding: 20px; background: #0f172a; display: flex; justify-content: space-between;">
         <h2 id="video-title">Player</h2>
@@ -173,6 +179,7 @@
     </div>
 </div>
 
+<!-- Lab Overlay -->
 <div class="overlay" id="lab-box" style="background: #000;">
     <div style="padding: 15px; background: #1e293b; display: flex; justify-content: space-between;">
         <strong>Interactive Lab</strong>
@@ -224,5 +231,7 @@
         preview.close();
     }
 </script>
+
 </body>
 </html>
+
