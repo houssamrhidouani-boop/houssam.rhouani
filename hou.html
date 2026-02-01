@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevState Ultra | Full Developer Ecosystem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <meta name="author" content="houssam Rhidouani">
+    <style>
+        :root {
+            --bg: #030712;
+            --card: #0f172a;
+            --primary: #6366f1;
+            --secondary: #0ea5e9;
+            --accent: #f43f5e;
+            --text: #f8fafc;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
+
+        /* --- HEADER --- */
+        header {
+            padding: 15px 5%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(3, 7, 18, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .logo { font-size: 1.6rem; font-weight: 800; text-decoration: none; color: #fff; }
+        .logo span { color: var(--primary); }
+        .nav-actions { display: flex; gap: 20px; align-items: center; }
+        
+        /* --- SEARCH BOX --- */
+        .search-container { position: relative; margin: 20px auto; max-width: 600px; }
+        .search-container input {
+            width: 100%; padding: 15px 25px; border-radius: 50px; background: var(--card);
+            border: 1px solid var(--border); color: white; outline: none;
+        }
+        .search-container input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(99, 102, 241, 0.3); }
+
+        /* --- LAYOUT --- */
+        .container { max-width: 1250px; margin: 0 auto; padding: 40px 20px; }
+        .section-title { margin: 60px 0 30px; border-left: 4px solid var(--primary); padding-left: 15px; }
+
+        /* --- CARDS GRID --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .card { background: var(--card); border-radius: 24px; padding: 30px; border: 1px solid var(--border); position: relative; }
+        .card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .card i.main-icon { font-size: 3rem; margin-bottom: 20px; display: block; }
+        .price { position: absolute; top: 25px; right: 25px; font-weight: 800; color: var(--secondary); }
+
+        .btn-group { display: flex; gap: 10px; margin-top: 20px; }
+        .btn { padding: 12px; border-radius: 12px; border: none; cursor: pointer; font-weight: 600; flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-size: 0.9rem; }
+        .btn-watch { background: var(--primary); color: white; }
+        .btn-lab { background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--border); }
+
+        /* --- DIGITAL LIBRARY --- */
+        .book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; }
+        .book-card { background: var(--card); border-radius: 20px; padding: 20px; text-align: center; border: 1px solid var(--border); }
+        .book-cover { width: 100px; height: 140px; margin: 0 auto 15px; border-radius: 4px 10px 10px 4px; display: flex; align-items: center; justify-content: center; position: relative; box-shadow: 5px 5px 15px rgba(0,0,0,0.4); }
+        .book-cover i { font-size: 2.5rem; color: white; }
+        .book-cover::after { content: ''; position: absolute; left: 8px; top: 0; width: 2px; height: 100%; background: rgba(255,255,255,0.2); }
+
+        /* --- VIDEO & LAB OVERLAYS --- */
+        .overlay { position: fixed; inset: 0; background: #000; z-index: 2000; display: none; flex-direction: column; }
+        .overlay.active { display: flex; }
+        .lab-grid { display: flex; height: 550px; }
+        textarea { flex: 1; background: #020617; color: var(--secondary); padding: 20px; font-family: monospace; border: none; outline: none; }
+        #preview { flex: 1; background: white; border: none; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="#" class="logo">DevState<span>Ultra</span></a>
+    <div class="nav-actions">
+        <div class="cart-icon"><i class="fa-solid fa-basket-shopping"></i><span class="badge" id="cart-badge">0</span></div>
+        <i class="fa-solid fa-user-astronaut" style="font-size: 1.5rem;"></i>
+    </div>
+</header>
+
+<div class="container">
+    <div style="text-align: center;">
+        <h1>Elevate Your Skills</h1>
+        <p style="color: #94a3b8;">Learn JavaScript, Python, C++, Java, and more.</p>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search courses, books, or languages..." onkeyup="filterContent()">
+        </div>
+    </div>
+
+    <div class="section-title"><h2>Interactive Courses</h2></div>
+    <div class="grid" id="courseGrid">
+        <div class="card item">
+            <span class="price">$19.99</span>
+            <i class="fa-brands fa-python main-icon" style="color: #fbbf24;"></i>
+            <h3>Python Mastery</h3>
+            <p>Data Science, Automation, & AI.</p>
+            <div class="btn-group">
+                <button class="btn btn-watch" onclick="openVideo('rfscVS0vtbw', 'Python')">Watch</button>
+                <button class="btn btn-lab" onclick="openLab('python')">Practice</button>
+            </div>
+        </div>
+        <div class="card item">
+            <span class="price">$24.99</span>
+            <i class="fa-brands fa-js main-icon" style="color: #f0db4f;"></i>
+            <h3>Modern JavaScript</h3>
+            <p>ES6+, Async, & DOM Manipulation.</p>
+            <div class="btn-group">
+                <button class="btn btn-watch" onclick="openVideo('mU6an7qBrHw', 'JavaScript')">Watch</button>
+                <button class="btn btn-lab" onclick="openLab('js')">Practice</button>
+            </div>
+        </div>
+        <div class="card item">
+            <span class="price">$29.99</span>
+            <i class="fa-brands fa-java main-icon" style="color: #e76f51;"></i>
+            <h3>Java Backend</h3>
+            <p>Spring Boot & Robust Systems.</p>
+            <div class="btn-group">
+                <button class="btn btn-watch" onclick="openVideo('grEKMHGYuko', 'Java')">Watch</button>
+                <button class="btn btn-lab" onclick="openLab('java')">Practice</button>
+            </div>
+        </div>
+        <div class="card item">
+            <span class="price">$22.00</span>
+            <i class="fa-solid fa-code main-icon" style="color: #00599c;"></i>
+            <h3>C++ Game Dev</h3>
+            <p>Memory management & Unreal Engine.</p>
+            <div class="btn-group">
+                <button class="btn btn-watch" onclick="openVideo('vLnPwxZdW4Y', 'C++')">Watch</button>
+                <button class="btn btn-lab" onclick="openLab('cpp')">Practice</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title"><h2>Digital Library (Official PDFs)</h2></div>
+    <div class="book-grid" id="bookGrid">
+        <div class="book-card item">
+            <div class="book-cover" style="background: #f7df1e; color: black;"><i class="fa-brands fa-js"></i></div>
+            <h4>Eloquent JavaScript</h4>
+            <a href="https://eloquentjavascript.net/Eloquent_JavaScript.pdf" target="_blank" class="btn btn-watch">Read</a>
+        </div>
+        <div class="book-card item">
+            <div class="book-cover" style="background: #3776ab;"><i class="fa-brands fa-python"></i></div>
+            <h4>Python Crash Course</h4>
+            <a href="https://ehmatthes.github.io/pcc_2e/cheatsheets/cheat_sheets/" target="_blank" class="btn btn-watch">Read</a>
+        </div>
+        <div class="book-card item">
+            <div class="book-cover" style="background: #000;"><i class="fa-solid fa-book"></i></div>
+            <h4>Clean Code</h4>
+            <a href="https://archive.org/download/CleanCode/Clean%20Code.pdf" target="_blank" class="btn btn-watch">Read</a>
+        </div>
+        <div class="book-card item">
+            <div class="book-cover" style="background: #6f4e37;"><i class="fa-brands fa-java"></i></div>
+            <h4>Thinking in Java</h4>
+            <a href="https://www.mindviewinc.com/TIJ4/ThinkingInJava4.pdf" target="_blank" class="btn btn-watch">Read</a>
+        </div>
+        <div class="book-card item">
+            <div class="book-cover" style="background: #777bb4;"><i class="fa-brands fa-php"></i></div>
+            <h4>PHP & MySQL</h4>
+            <a href="https://math.hws.edu/eck/cs124/downloads/javanotes9-linked.pdf" target="_blank" class="btn btn-watch">Read</a>
+        </div>
+    </div>
+</div>
+
+<div class="overlay" id="video-overlay">
+    <div style="padding: 20px; background: #0f172a; display: flex; justify-content: space-between;">
+        <h2 id="video-title">Player</h2>
+        <button onclick="closeVideo()" class="btn-watch" style="padding: 5px 20px;">Close</button>
+    </div>
+    <div class="player-main">
+        <div class="video-side"><iframe id="video-frame" src="" allow="autoplay; fullscreen"></iframe></div>
+    </div>
+</div>
+
+<div class="overlay" id="lab-box" style="background: #000;">
+    <div style="padding: 15px; background: #1e293b; display: flex; justify-content: space-between;">
+        <strong>Interactive Lab</strong>
+        <button onclick="document.getElementById('lab-box').classList.remove('active')" style="color: white; background: red; border: none; padding: 5px 15px; border-radius: 5px; cursor: pointer;">Exit</button>
+    </div>
+    <div class="lab-grid">
+        <textarea id="editor" oninput="runCode()"></textarea>
+        <iframe id="preview"></iframe>
+    </div>
+</div>
+
+<script>
+    function filterContent() {
+        let input = document.getElementById('searchInput').value.toLowerCase();
+        let items = document.getElementsByClassName('item');
+        for (let i = 0; i < items.length; i++) {
+            items[i].style.display = items[i].innerText.toLowerCase().includes(input) ? "block" : "none";
+        }
+    }
+
+    function openVideo(id, title) {
+        document.getElementById('video-title').innerText = title + " Masterclass";
+        document.getElementById('video-frame').src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+        document.getElementById('video-overlay').classList.add('active');
+    }
+
+    function closeVideo() {
+        document.getElementById('video-overlay').classList.remove('active');
+        document.getElementById('video-frame').src = "";
+    }
+
+    function openLab(type) {
+        document.getElementById('lab-box').classList.add('active');
+        const codeMap = {
+            python: "<h1>Python Lab</h1><p>Output: 2 + 2 = 4</p>",
+            js: "<button onclick='alert(\"JS Active!\")'>Click Me</button>",
+            java: "<h1>Java System Ready</h1>",
+            cpp: "<h1>C++ Graphics Hooked</h1>"
+        };
+        document.getElementById('editor').value = codeMap[type] || "<h1>Start Coding...</h1>";
+        runCode();
+    }
+
+    function runCode() {
+        const code = document.getElementById('editor').value;
+        const preview = document.getElementById('preview').contentDocument;
+        preview.open();
+        preview.write(code);
+        preview.close();
+    }
+</script>
+</body>
+</html>
